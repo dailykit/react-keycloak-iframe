@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Landing from "./pages/landing";
+import Listing from "./pages/listing";
+import User from "./pages/user";
+import Login from "./pages/login";
+import Callback from "./pages/callback";
+import Help from "./pages/help";
+
+const App = () => {
+    return (
+        <>
+            <Route path="/" exact component={Landing} />
+            <Route path="/restaurants" exact component={Listing} />
+            <Route path="/users" exact component={User} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/callback" exact component={Callback} />
+            <Route path="/help" exact component={Help} />
+        </>
+    );
+};
 
 export default App;
