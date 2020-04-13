@@ -20,7 +20,7 @@ const excludeUrls = ["/", "/help"];
 
 export const AuthProvider = ({ children }) => {
     const history = useHistory();
-    //const [isLoading, setLoading] = React.useState(true);
+    const [isLoading, setLoading] = React.useState(true);
     const [keycloakLoginUrl, setKeycloakLoginUrl] = React.useState("");
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
     const [user, setUser] = React.useState({});
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
             promiseType: "native",
         });
         if (authenticated) {
+            setLoading(false);
             isLoggedIn = true;
             if (
                 window.location.pathname == "/login" ||
@@ -49,15 +50,16 @@ export const AuthProvider = ({ children }) => {
                         `${window.location.hostname}` +
                         ":" +
                         `${window.location.port}` +
-                        "/callback",
+                        "/callback?url=" +
+                        `${window.location.pathname}`,
                 })
             );
-            //setLoading(false);
             {
                 excludeUrls.includes(window.location.pathname)
                     ? history.push(window.location.pathname)
                     : history.push("/login");
             }
+            setLoading(false);
         }
         if (isLoggedIn) {
             setIsAuthenticated(true);
@@ -76,6 +78,7 @@ export const AuthProvider = ({ children }) => {
                 isAuthenticated,
                 keycloakLoginUrl,
                 user,
+                isLoading,
             }}
         >
             {children}

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { useAuth } from "./context/auth";
 
 import Landing from "./pages/landing";
 import Listing from "./pages/listing";
@@ -9,6 +10,13 @@ import Callback from "./pages/callback";
 import Help from "./pages/help";
 
 const App = () => {
+    const { isLoading } = useAuth();
+    if (isLoading)
+        return (
+            <div className="fixed inset-0 flex items-center justify-center">
+                <img src="/img/loader.gif" alt="" className="h-16" />
+            </div>
+        );
     return (
         <>
             <Route path="/" exact component={Landing} />

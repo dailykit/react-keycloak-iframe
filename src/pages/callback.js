@@ -1,13 +1,17 @@
 import React from "react";
+import { useAuth } from "../context/auth";
 
-class Callback extends React.Component {
-    render() {
-        return null;
-    }
-
-    componentDidMount() {
-        window.parent.location.reload();
-    }
-}
+const Callback = () => {
+    React.useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToRedirect = urlParams.get("url");
+        window.parent.location.href =
+            window.parent.location.protocol +
+            "//" +
+            window.parent.location.host +
+            urlToRedirect;
+    });
+    return null;
+};
 
 export default Callback;
